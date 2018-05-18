@@ -1,0 +1,135 @@
+body{
+	background-color:#FCFCFC;
+	background-image: url("http://www.wildtextures.com/wp-content/uploads/wildtextures_white-stained-wooden-boards.jpg");
+	background-size: cover;
+}
+
+
+.thumbnail img{
+width: 100%;
+height: 165px;
+border-radius: 6px;
+
+}
+
+.thumbnail{
+  
+    width: 100%;
+	height: 300px;
+	padding: 0;
+	box-shadow:-10px 0px 10px 1px #6A6A6A;
+	border-radius: 6px;
+	background-color: #FDFDFD;
+	
+}
+
+.thumbnail .btn{
+margin-left: 30%;
+text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1); 
+}
+
+.thumbnail .caption-full P,h4{
+    padding: 9px;
+	margin-left: 26%;
+	
+}
+.jumbotron{
+    background-image:url("http://wanderingbee.com/wp-content/uploads/2017/06/SecondSlider.png");
+    background-size: cover;
+	color: ghostwhite;
+	box-shadow:-10px 0px 10px 1px #6A6A6A;
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1); 
+
+}
+
+.newButton{
+	background-color: #ff1d8e;
+	font-size: 16.5px;;
+}
+
+img{
+    width: 1280px;
+    height: 720px;
+}
+
+#brandlogo{
+	padding-right: 3px;
+}
+
+#brand{
+	font-weight: bold;
+	color: #CC2828;
+}
+
+#bs-example-navbar-collapse-1{
+	font-weight: bold;
+	border-color: transparent;
+	margin-top: 5px;
+	
+}
+}
+.form-control{
+
+height: 40px;
+padding: 15px;
+font-size: 16px;
+color: #8c8c8c; 
+background-color: #f5f5f5;
+border: 1px solid #d1d1d1;
+box-shadow: none;
+font-weight: 300;
+margin-top: 8px;
+}
+
+.form-control:focus{
+	box-shadow: none;
+	color: #793a93;
+	border-color:  #793a93;
+}
+
+.form-control::-moz-placeholder{
+	color: #8c8c8c;
+}
+
+.form-control::-ms-input-placeholder{
+	color: #8c8c8c;
+}
+
+.form-control::-webkit-input-placeholder{
+	color: #8c8c8c;
+}
+
+
+.form-control:focus::-moz-placeholder{
+	color: #793a93;
+}
+
+.form-control:focus::-ms-input-placeholder{
+	color: #793a93;
+}
+
+.form-control:focus::-webkit-input-placeholder{
+	color: #793a93;
+}
+
+.copyrights{
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	
+
+    }
+
+	.navbar {
+		margin-top: 5px;	 
+		box-shadow:-10px 0px 10px 1px #aaaaaa;
+		
+    }
+		
+
+	
+

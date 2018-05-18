@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <title>YelpCamp</title>
+    <link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel = "stylesheet" href ="/stylesheets/show.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+  </head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" id="brand"><i class="fa fa-flag" id="brandlogo" aria-hidden="true"></i>YelpCamp</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li><a href="/login">login</a></li>
+        <li><a href="/register">signup</a></li>
+        <li><a href="/logout">logout</a></li>
+        
+      </ul>
+      
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container">
+  <div class = "row">
+    <div class = "col-md-3">
+      <p class ="lead">YelpCamp</p>
+      <div class = "list-group">
+        <li class="list-group-item active">Info 1</li>
+        <li class="list-group-item">Info 2</li>
+        <li class="list-group-item">Info 3</li>
+      </div>
+    </div>
+    <div class = "col-md-9">
+      <div class = "thumbnail">
+        <img class = "img-responsive" src="<%= campground.image%>">
+        <div class = "caption-full">
+          <h4 class = "pull-right">$9.00/night</h4>
+          <h4><a><%=campground.name%></a></h4>
+          <p><%= campground.description%></p>
+           <p>
+             <em>posted by <%= campground.author.username%></em>
+          </p>
+        </div>
+      </div>
+      <div class = "well">
+        <div class = "text-right">
+           <a class = "btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
+        </div>
+        <hr>
+        <% campground.comments.forEach(function(comment){ %>
+          <div class = "row">
+            <div class = "col-md-12">
+              <strong><%= comment.author.username %></strong>
+              <strong><span class = "pull-right" style = "color:teal" >10 days ago</span></strong>
+              <p>
+                <%= comment.text %>
+              </p>
+
+            </div>
+          </div>  
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<div class="copyrights text-center">
+         &copy; Copyright 2016 -Friendly Stuff
+       </div>
+  </head>
+<body>
+
+
+

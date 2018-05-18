@@ -1,41 +1,161 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
+var express     = require("express"),
+    app         = express(),
+    bodyParser  = require("body-parser"),
+    mongoose    = require("mongoose"),
+    passport    = require("passport"),
+    LocalStrategy = require("passport-local"),
+    User        = require("./models/user"),
+    Campground  = require("./models/campgrounds"),
+    Comment     = require("./models/comment"),
+    seedDB      = require("./seeds.js")
 
+
+mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
+app.use(express.static(__dirname+"/Public"));
+console.log(__dirname)
+seedDB();
 
-var campgrounds = [
-      {name:"Salmon Creek", image:"https://i.ytimg.com/vi/n6RtLye_qJM/maxresdefault.jpg"},
-      {name:"Granite Hill", image:"http://access.parks.ca.gov/parkpictures//PrairieCreekCabin.jpg"},
-      {name:"Dead man's cliff", image:"http://52583a043dc5b868d166-4f8f580dda5ee644b03eed875d323fab.r95.cf2.rackcdn.com/55fb1f8aa097a/55fb1f8aa097a-poster.jpg"},
-      {name:"euakton valley", image:"http://haaslakepark.com/wp-content/uploads/2015/01/RV-by-Water2.jpg"},
-      {name:"passapuiqua Peaks", image:"http://trekohio.com/wp-content/uploads/20161002-farnsworth-metropark-riverside-campsite-dscf0838.jpg"}
-  ]
+//passport configuration
+app.use(require("express-session")({
+  secret: " mask off",
+  resave:false,
+  saveUninitialized:false
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-
-app.listen(3000,function(){
+app.listen(4000,function(){
     console.log("yelpcamp server started");
+
+
 });
 
+//Auth Routes
+
+app.get("/register",function(req,res){
+  res.render("register");
+});
+
+//handle sign up-logic
+
+app.post("/register", function(req,res){
+  var newUser = new User({username:req.body.username});
+  User.register(newUser,req.body.password,function(err,user){
+    if(err){
+      console.log(err);
+      return res.render("register")
+    }
+    passport.authenticate("local")(req,res,function(){
+      res.redirect("/campgrounds");
+    })
+  })
+});
+
+//show login form
+
+app.get("/login",function(req,res){
+  res.render("login");
+})
 
 app.get("/",function(req,res){
-  res.render("landing");
+  res.redirect("/campgrounds");
 });
 
+//handling login logic
+
+app.post("/login",passport.authenticate("local",
+  {
+     successRedirect:"/campgrounds",
+     failureRedirect: "/login"
+  }),function(req,res){
+ 
+});
+
+//logout route
+
+app.get("/logout",function(req,res){
+  req.logout();
+  res.redirect("/campgrounds");
+});
+
+//INDEX- show all campgrounds
 app.get("/campgrounds",function(req,res){
-  
-  res.render("campgrounds",{campgrounds:campgrounds});
+  //Get all campgrounds from DB
+  Campground.find({},function(err,allCampgrounds){
+    if(err){
+      console.log(err);
+    }else{
+     res.render("campgrounds/index",{campgrounds:allCampgrounds});
+    }
+  }) 
 });
-
+//CREATE- add new campground to DB
 app.post("/campgrounds", function(req,res){
 var name = req.body.name;
 var image = req.body.image;
-var newCampground = {name:name,image:image}
-campgrounds.push(newCampground);
-res.redirect("/campgrounds");
+var desc = req.body.description;
+var newCampground = {name:name,image:image,description:desc}
+// Create a new campground and save to DB
+Campground.create(newCampground,function(err,newlyCreated){
+  if(err){
+    console.log(err);
+  }else{// redirect back to campgrounds page
+    res.redirect("/campgrounds")
+  }
 });
 
+});
+//form to create new campground
 app.get("/campgrounds/new", function(req,res){
-  res.render("new.ejs")
+  res.render("campgrounds/new")
+});
+// SHOW - shows more info about one campground
+app.get("/campgrounds/:id",function(req,res){
+  // find the campground with provided ID
+  Campground.findById (req.params.id).populate("comments").exec(function(err,foundCampground){
+    if(err){
+      console.log(err);
+    }else{
+      console.log(foundCampground)
+      // render show template with that campground
+      res.render("campgrounds/show",{campground: foundCampground});
+    }
+  });
+});
+
+// comments route
+
+app.get("/campgrounds/:id/comments/new", function(req,res){
+   // find campground by id
+  Campground.findById(req.params.id,function(err, campground){
+    if(err){
+      console.log(err);
+    }else{
+      res.render("comments/new",{campground:campground});
+    }
+  })
+})
+
+app.post("/campgrounds/:id/comments",function(req,res){
+  Campground.findById(req.params.id,function(err, campground){
+    if(err){
+      console.log(err);
+      res.redirect("/campgrounds");
+    }else{
+    Comment.create(req.body.comment,function(err, comment){
+      if(err){
+      console.log(err);
+      }else{
+        campground.comments.push(comment);
+        campground.save();
+        res.redirect('/campgrounds/'+ campground._id);
+      }
+     })
+    }
+  })
 })

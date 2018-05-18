@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Signup</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href ="/stylesheets/Signup.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+</head>
+<% include ./partials/header %>
+<body>
+
+
+
+<section id="contact">
+        <div class="container">
+        <div class="row">
+
+        <div class="col-md-6 col-sm-6 col-xs-12 support vertical-align">
+              <h1>Welcome back!</h1>
+              <i class="fa fa-flag fa-5x" id="plane" aria-hidden="true"></i>
+              <br>
+              <p>We missed you</p>
+              </div>
+          <div class="col-md-6 col-sm-6 col-xs-12 contact-form">
+            
+            <form action = "/login" method = "post">
+              
+                 <div class="col-md-12 col-sm-12" >
+                  <div class="form-group">
+                    <input type="text" class="form-control" name = "username" placeholder="username">
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12" >
+                  <div class="form-group">
+                    <input type="Password" class="form-control" name = "password" placeholder="Password">
+                  </div>
+                </div>
+                <button class="btn btn-info btn-lg" id="getstarted"><i class="fa fa-flag" id="brandlogo" aria-hidden="true"></i>login</button>
+              </div>
+
+              
+              
+            </form>
+            
+          </div>
+        </div>
+      </div>
+
+      </section>
+</html>
+       
+
+      <script   type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+<% include ./partials/footer %>
+
+
